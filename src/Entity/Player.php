@@ -16,7 +16,7 @@ class Player
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private int $id;
+    private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -27,6 +27,19 @@ class Player
      * @ORM\Column(type="datetime")
      */
     private ?DateTimeInterface $createdAt;
+
+    /**
+     * Player constructor.
+     */
+    public function __construct()
+    {
+        $this->setCreatedAt(new \DateTime());
+    }
+
+    public function __toString(): ?string
+    {
+        return $this->getName();
+    }
 
     public function getId(): ?int
     {

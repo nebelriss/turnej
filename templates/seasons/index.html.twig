@@ -3,11 +3,11 @@
 {% block title %}Your Seasons{% endblock %}
 
 {% block body %}
-    <div class="seasons">
-        <ul>
-            {% for season in seasons %}
-                <li>season.name</li>
-            {% endfor %}
-        </ul>
-    </div>
+  <div class="seasons">
+    <ul>
+      {% for season in seasons %}
+        <li>{{ season.name }}</li>
+      {% endfor %}
+    </ul>
+  </div>
 {% endblock %}

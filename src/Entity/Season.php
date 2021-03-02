@@ -18,7 +18,7 @@ class Season
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private int $id;
+    private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -53,15 +53,16 @@ class Season
     /**
      * @ORM\OneToMany(targetEntity=Game::class, mappedBy="season")
      */
-    private ArrayCollection $games;
+    private $games;
 
     /**
      * @ORM\ManyToMany(targetEntity=User::class, mappedBy="seasons")
      */
-    private ArrayCollection $users;
+    private $users;
 
     public function __construct()
     {
+        $this->setCreatedAt(new \DateTime());
         $this->games = new ArrayCollection();
         $this->users = new ArrayCollection();
     }

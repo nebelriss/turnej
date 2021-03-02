@@ -15,7 +15,7 @@ class Game
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private int $id;
+    private $id;
 
     /**
      * @ORM\Column(type="integer", nullable=true)

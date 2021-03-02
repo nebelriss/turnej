@@ -20,7 +20,7 @@ class User implements UserInterface
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private int $id;
+    private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
@@ -46,11 +46,17 @@ class User implements UserInterface
     /**
      * @ORM\ManyToMany(targetEntity=Season::class, inversedBy="users")
      */
-    private ArrayCollection $seasons;
+    private $seasons;
 
     public function __construct()
     {
+        $this->setCreatedAt(new \DateTime());
         $this->seasons = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->username;
     }
 
     public function getId(): ?int
@@ -115,6 +121,7 @@ class User implements UserInterface
     public function getSalt(): ?string
     {
         // not needed when using the "bcrypt" algorithm in security.yaml
+        return null;
     }
 
     /**
