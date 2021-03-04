@@ -15,7 +15,7 @@ class Game
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private ?int $id;
+    private $id;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -39,11 +39,31 @@ class Game
     private ?\DateTimeInterface $createdAt;
 
     /**
+     * @ORM\ManyToOne(targetEntity=Player::class, inversedBy="gamesHome")
+     */
+    private $playerHome;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Player::class, inversedBy="gamesAway")
+     */
+    private $playerAway;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $round;
+
+    /**
      * Game constructor.
      */
     public function __construct()
     {
         $this->setCreatedAt(new \DateTime());
+    }
+
+    public function __toString(): string
+    {
+        return $this->getPlayerHome()->getName() . ' - ' . $this->getPlayerAway()->getName();
     }
 
     public function getId(): ?int
@@ -95,6 +115,42 @@ class Game
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getPlayerHome(): ?Player
+    {
+        return $this->playerHome;
+    }
+
+    public function setPlayerHome(?Player $playerHome): self
+    {
+        $this->playerHome = $playerHome;
+
+        return $this;
+    }
+
+    public function getPlayerAway(): ?Player
+    {
+        return $this->playerAway;
+    }
+
+    public function setPlayerAway(?Player $playerAway): self
+    {
+        $this->playerAway = $playerAway;
+
+        return $this;
+    }
+
+    public function getRound(): ?int
+    {
+        return $this->round;
+    }
+
+    public function setRound(?int $round): self
+    {
+        $this->round = $round;
 
         return $this;
     }
