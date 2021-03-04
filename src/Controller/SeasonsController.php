@@ -19,7 +19,7 @@ class SeasonsController extends AbstractController
      */
     public function index(): Response
     {
-        $seasons = $this->getUser()->getSeasons();
+        $seasons = $this->getDoctrine()->getRepository(League);
         return $this->render('seasons/index.html.twig', [
             'seasons' => $seasons,
         ]);

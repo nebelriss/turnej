@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Game;
+use App\Entity\League;
 use App\Entity\Player;
 use App\Entity\Season;
 use App\Entity\User;
@@ -34,6 +35,7 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Users', 'fas fa-users', User::class);
+        yield MenuItem::linkToCrud('League', 'fas fa-users', League::class);
         yield MenuItem::linkToCrud('Seasons', 'fas fa-wind', Season::class);
         yield MenuItem::linkToCrud('Players', 'fas fa-gamepad', Player::class);
         yield MenuItem::linkToCrud('Games', 'fas fa-gamepad', Game::class);

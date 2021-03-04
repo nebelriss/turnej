@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\League;
 use App\Entity\Season;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -29,8 +30,13 @@ class AppFixtures extends Fixture
         $season->setName('season_01');
         $season->setLocation('Smuk');
         $season->setEventDate(new \DateTime());
-        $season->addUser($user);
         $manager->persist($season);
+
+        $league = new League();
+        $league->setName('league 1');
+        $league->addSeason($season);
+        $league->addUser($user);
+        $manager->persist($league);
 
         $manager->flush();
     }

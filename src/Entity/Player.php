@@ -16,7 +16,7 @@ class Player
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -27,6 +27,11 @@ class Player
      * @ORM\Column(type="datetime")
      */
     private ?DateTimeInterface $createdAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=League::class, inversedBy="players")
+     */
+    private $league;
 
     /**
      * Player constructor.
@@ -66,6 +71,18 @@ class Player
     public function setCreatedAt(DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getLeague(): ?League
+    {
+        return $this->league;
+    }
+
+    public function setLeague(?League $league): self
+    {
+        $this->league = $league;
 
         return $this;
     }

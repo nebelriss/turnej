@@ -56,15 +56,20 @@ class Season
     private $games;
 
     /**
-     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="seasons")
+     * @ORM\ManyToOne(targetEntity=League::class, inversedBy="seasons")
      */
-    private $users;
+    private ?League $league;
 
     public function __construct()
     {
         $this->setCreatedAt(new \DateTime());
         $this->games = new ArrayCollection();
         $this->users = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->getName();
     }
 
     public function getId(): ?int
@@ -174,29 +179,14 @@ class Season
         return $this;
     }
 
-    /**
-     * @return Collection|User[]
-     */
-    public function getUsers(): Collection
+    public function getLeague(): ?League
     {
-        return $this->users;
+        return $this->league;
     }
 
-    public function addUser(User $user): self
+    public function setLeague(?League $league): self
     {
-        if (!$this->users->contains($user)) {
-            $this->users[] = $user;
-            $user->addSeason($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUser(User $user): self
-    {
-        if ($this->users->removeElement($user)) {
-            $user->removeSeason($this);
-        }
+        $this->league = $league;
 
         return $this;
     }

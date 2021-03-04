@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Leagues{% endblock %}
+
+{% block body %}
+  <div>
+    <ul>
+      {% for league in leagues %}
+        <li><a href="{{ path('seasons') }}">{{ league.name }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endblock %}

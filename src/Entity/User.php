@@ -44,14 +44,15 @@ class User implements UserInterface
     private ?DateTimeInterface $createdAt;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Season::class, inversedBy="users")
+     * @ORM\ManyToMany(targetEntity=League::class, mappedBy="users")
      */
-    private $seasons;
+    private $leagues;
 
     public function __construct()
     {
         $this->setCreatedAt(new \DateTime());
         $this->seasons = new ArrayCollection();
+        $this->leagues = new ArrayCollection();
     }
 
     public function __toString()
@@ -146,25 +147,28 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection|Season[]
+     * @return Collection|League[]
      */
-    public function getSeasons(): Collection
+    public function getLeagues(): Collection
     {
-        return $this->seasons;
+        return $this->leagues;
     }
 
-    public function addSeason(Season $season): self
+    public function addLeague(League $league): self
     {
-        if (!$this->seasons->contains($season)) {
-            $this->seasons[] = $season;
+        if (!$this->leagues->contains($league)) {
+            $this->leagues[] = $league;
+            $league->addUser($this);
         }
 
         return $this;
     }
 
-    public function removeSeason(Season $season): self
+    public function removeLeague(League $league): self
     {
-        $this->seasons->removeElement($season);
+        if ($this->leagues->removeElement($league)) {
+            $league->removeUser($this);
+        }
 
         return $this;
     }

@@ -15,7 +15,7 @@ class Game
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -32,6 +32,19 @@ class Game
      * @ORM\JoinColumn(nullable=false)
      */
     private ?Season $season;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private ?\DateTimeInterface $createdAt;
+
+    /**
+     * Game constructor.
+     */
+    public function __construct()
+    {
+        $this->setCreatedAt(new \DateTime());
+    }
 
     public function getId(): ?int
     {
@@ -70,6 +83,18 @@ class Game
     public function setSeason(?Season $season): self
     {
         $this->season = $season;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }
