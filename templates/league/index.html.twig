@@ -6,7 +6,7 @@
   <div>
     <ul>
       {% for league in leagues %}
-        <li><a href="{{ path('seasons') }}">{{ league.name }}</a></li>
+        <li><a href="/league/{{ league.id }}">{{ league.name }}</a></li>
       {% endfor %}
     </ul>
   </div>
