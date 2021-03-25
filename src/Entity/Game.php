@@ -2,11 +2,16 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\GameRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=GameRepository::class)
+ * @ApiResource(
+ *     collectionOperations={"get", "post"},
+ *     itemOperations={"get"}
+ *     )
  */
 class Game
 {

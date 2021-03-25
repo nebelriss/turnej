@@ -6,15 +6,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class HompageController extends AbstractController
+class LandingPageController extends AbstractController
 {
     /**
-     * @Route("/home", name="dashboard")
+     * @Route("/", name="landing_page")
      */
     public function index(): Response
     {
-        return $this->render('hompage/index.html.twig', [
-            'controller_name' => 'HompageController',
-        ]);
+        return $this->redirectToRoute('app_login');
     }
 }

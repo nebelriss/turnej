@@ -1,7 +1,8 @@
 install:
 	docker-compose build
 	docker-compose up -d
-	symfony composer doc:mi:mi
+	symfony composer install
+	symfony console doc:mi:mi
 
 start:
 	docker-compose up -d
@@ -12,7 +13,7 @@ stop:
 	docker-compose down --remove-orphans
 
 load:
-	doctrine:fixtures:load
+	symfony console doctrine:fixtures:load
 
 watch:
 	yarn encore dev --watch

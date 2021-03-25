@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class TailwindController extends AbstractController
 {
     /**
-     * @Route("/tailwind", name="hompage")
+     * @Route("/tailwind", name="tailwind")
      */
     public function index(): Response
     {

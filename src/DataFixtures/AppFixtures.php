@@ -24,7 +24,7 @@ class AppFixtures extends Fixture
     {
         $user = new User();
         $user->setUsername('admin');
-        $user->setRoles(['ROLE_ADMIN', 'ROLE_USER']);
+        $user->setRoles(['ROLE_SUADMIN','ROLE_ADMIN', 'ROLE_USER']);
         $user->setPassword($this->encoderFactory->getEncoder(User::class)->encodePassword('admin', null));
         $manager->persist($user);
 
@@ -34,40 +34,55 @@ class AppFixtures extends Fixture
         $season->setEventDate(new \DateTime());
         $manager->persist($season);
 
-        $player = new Player();
-        $player->setName('Max');
-        $manager->persist($player);
+        $season2 = new Season();
+        $season2->setName('season_02');
+        $season2->setLocation('Smuk');
+        $season2->setEventDate(new \DateTime());
+        $manager->persist($season2);
 
-        $player2 = new Player();
-        $player2->setName('Moriz');
-        $manager->persist($player2);
+        $players = [];
+        for ($i = 1; $i <= 4; $i++) {
+            $player = new Player();
+            $player->setName('Player' . $i);
+            $manager->persist($player);
+            array_push($players, $player);
+        }
+
+        $playersReverse = array_reverse($players);
 
         $league = new League();
         $league->setName('league 1');
         $league->addSeason($season);
         $league->addUser($user);
-        $league->addPlayer($player);
-        $league->addPlayer($player2);
+        foreach ($players as $player) {
+            $league->addPlayer($player);
+        }
         $manager->persist($league);
 
-        $game1 = new Game();
-        $game1->setRound(1);
-        $game1->setSeason($season);
-        $game1->setPlayerHome($player);
-        $game1->setPlayerHomeGoals(0);
-        $game1->setPlayerAway($player2);
-        $game1->setPlayerAwayGoals(2);
-        $manager->persist($game1);
+        $league2 = new League();
+        $league2->setName('league 2');
+        $league2->addSeason($season2);
+        $league2->addUser($user);
+        foreach ($players as $player) {
+            $league2->addPlayer($player);
+        }
+        $manager->persist($league2);
 
-        $game1 = new Game();
-        $game1->setRound(1);
-        $game1->setSeason($season);
-        $game1->setPlayerHome($player2);
-        $game1->setPlayerHomeGoals(1);
-        $game1->setPlayerAway($player);
-        $game1->setPlayerAwayGoals(1);
-        $manager->persist($game1);
-
+        $gameCounter = 1;
+        foreach ($players as $player) {
+            foreach($playersReverse as $rPlayer) {
+                if ($player !== $rPlayer) {
+                    $game = new Game();
+                    $game->setRound($gameCounter++);
+                    $game->setSeason($season);
+                    $game->setPlayerHome($player);
+                    $game->setPlayerHomeGoals(rand(1,12));
+                    $game->setPlayerAway($rPlayer);
+                    $game->setPlayerAwayGoals(rand(1,12));
+                    $manager->persist($game);
+                }
+            }
+        }
         $manager->flush();
     }
 }

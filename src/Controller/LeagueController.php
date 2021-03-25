@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\League;
+use App\Entity\Season;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -39,6 +40,26 @@ class LeagueController extends AbstractController
 
         return $this->render('league/show.html.twig', [
             'league' => $league
+        ]);
+    }
+
+    /**
+     * @Route("/league/{leagueId}/seasons/{seasonId}", name="show_season")
+     * @param int $leagueId
+     * @param int $seasonId
+     * @return Response
+     */
+    public function showSeason(int $leagueId, int $seasonId): Response
+    {
+        $userId = $this->getUser()->getId();
+
+        $season = $this
+            ->getDoctrine()
+            ->getRepository(Season::class)
+            ->find($seasonId);
+
+        return $this->render('league/show_season.html.twig', [
+            'season' => $season
         ]);
     }
 }

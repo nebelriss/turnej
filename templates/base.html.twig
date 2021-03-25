@@ -1,17 +1,24 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Turnej - {% block title %}{% endblock %}</title>
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
-        {% block javascript %}
-          {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}{% endblock %}</title>
+  {% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+  {% endblock %}
+  {% block javascript %}
+  {{ encore_entry_script_tags('app') }}
+{% endblock %}
+</head>
+<body>
+<div class="h-screen bg-white overflow-hidden flex">
+  {% block sidebar %}
+    {% include 'layout/sidebar/_index.html.twig' %}
+    {% include 'layout/sidebar/_index-mobile.html.twig' %}
+  {% endblock %}
+  {% block body %}{% endblock %}
+</div>
+
+{% block javascripts %}{% endblock %}
+</body>
 </html>
