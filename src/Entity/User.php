@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use DateTime;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -50,12 +51,12 @@ class User implements UserInterface
 
     public function __construct()
     {
-        $this->setCreatedAt(new \DateTime());
+        $this->setCreatedAt(new DateTime());
         $this->seasons = new ArrayCollection();
         $this->leagues = new ArrayCollection();
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->username;
     }
