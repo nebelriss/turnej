@@ -27,6 +27,7 @@ class AppFixtures extends Fixture
         $user->setRoles(['ROLE_SUADMIN','ROLE_ADMIN', 'ROLE_USER']);
         $user->setEmail('test@email.com');
         $user->setPassword($this->encoderFactory->getEncoder(User::class)->encodePassword('admin', null));
+        $user->setIsVerified(true);
         $manager->persist($user);
 
         $season = new Season();

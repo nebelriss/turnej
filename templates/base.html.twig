@@ -11,13 +11,12 @@
 {% endblock %}
 </head>
 <body>
-<div class="h-screen bg-white overflow-hidden flex">
+{#<div class="h-screen bg-white overflow-hidden flex">#}
   {% block sidebar %}
     {% include 'layout/sidebar/_index.html.twig' %}
     {% include 'layout/sidebar/_index-mobile.html.twig' %}
   {% endblock %}
   {% block body %}{% endblock %}
-</div>
 
 {% block javascripts %}{% endblock %}
 </body>

@@ -4,6 +4,11 @@ install:
 	symfony composer install
 	symfony console doc:mi:mi
 
+build:
+	docker-compose build
+	docker-compose up -d
+	symfony console doc:mi:mi
+
 start:
 	docker-compose up -d
 	symfony server:start -d
