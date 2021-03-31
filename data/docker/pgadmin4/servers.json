@@ -1,0 +1,14 @@
+{
+  "Servers": {
+    "1": {
+      "Name": "Turnej",
+      "Group": "Servers",
+      "Port": 5432,
+      "Username": "turnej",
+      "Host": "db",
+      "PassFile": "../../pgpass.conf",
+      "SSLMode": "prefer",
+      "MaintenanceDB": "turnej"
+    }
+  }
+}

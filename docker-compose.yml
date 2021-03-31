@@ -10,8 +10,14 @@ services:
       - 5432:5432
   pgadmin4:
     image: dpage/pgadmin4
+    depends_on:
+      - db
     environment:
-      PGADMIN_DEFAULT_EMAIL: user@domain.com
-      PGADMIN_DEFAULT_PASSWORD: SuperSecret
+      PGADMIN_DEFAULT_EMAIL: pg@turnej.com
+      PGADMIN_DEFAULT_PASSWORD: turnej
+    command: sh /pgadmin/init.sh
+    volumes:
+      - ./data/docker/pgadmin4/servers.json:/pgadmin4/servers.json
+      - ./data/docker/pgadmin4/pgpass.conf:/var/lib/pgadmin/pgpass.conf
     ports:
       - 8060:80
