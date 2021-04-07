@@ -6,7 +6,6 @@ install:
 
 start:
 	docker-compose up -d
-	symfony console doc:mi:mi
 	symfony server:start -d
 
 stop:
