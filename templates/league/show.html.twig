@@ -28,7 +28,7 @@
                               clip-rule="evenodd"/>
                       </svg>
                       <p>
-                        <time datetime="{{ season.createdAt|date('d.m.Y') }}">{{ season.createdAt|date }}</time>
+                        <time datetime="{{ season.eventDate|date('d.m.Y') }}">{{ season.eventDate|date('d.m.Y') }}</time>
                       </p>
                     </div>
                   </div>
@@ -48,6 +48,9 @@
         </li>
       {% endfor %}
     </ul>
+  </div>
+  <div>
+    <a href="{{ path('season-create', {id: league.id}) }}">create</a>
   </div>
 {% endblock %}
 

@@ -1,0 +1,14 @@
+{% extends 'layout/sidebar/_layout.html.twig' %}
+
+{% block title %}League - Create{% endblock %}
+
+{% block page_title %}Create new League{% endblock %}
+
+{% block content %}
+  {{ form_start(form) }}
+  {{ form_row(form.name) }}
+  {{ form_row(form.eventDate) }}
+  {{ form_row(form.location) }}
+  <button type="submit">Create</button>
+  {{ form_end(form) }}
+{% endblock %}

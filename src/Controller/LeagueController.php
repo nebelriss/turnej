@@ -6,6 +6,7 @@ use App\Entity\League;
 use App\Entity\Season;
 use App\Entity\User;
 use App\Form\LeagueType;
+use App\Form\SeasonType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -72,6 +73,40 @@ class LeagueController extends AbstractController
         return $this->render('league/show.html.twig', [
             'league' => $league
         ]);
+    }
+
+    /**
+     * @Route("/league/{id}/create", name="season-create")
+     * @param int $id
+     * @param Request $request
+     * @return Response
+     */
+    public function newSeason(int $id, Request $request): Response
+    {
+        $league = $this
+            ->getDoctrine()
+            ->getRepository(League::class)
+            ->findOneByIdAndUserId($id, $this->getUser()->getId());
+
+       $season = new Season();
+
+       $form = $this->createForm(SeasonType::class, $season);
+       $form->handleRequest($request);
+       if ($form->isSubmitted() && $form->isValid()) {
+           $season = $form->getData();
+
+           $league->addSeason($season);
+
+           $em = $this->getDoctrine()->getManager();
+           $em->persist($season);
+           $em->flush();
+
+           return $this->redirectToRoute('league', ['id' => $id]);
+       }
+
+       return $this->render('league/create_season.html.twig', [
+           'form' => $form->createView()
+       ]);
     }
 
     /**
