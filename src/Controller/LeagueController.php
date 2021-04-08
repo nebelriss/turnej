@@ -4,7 +4,10 @@ namespace App\Controller;
 
 use App\Entity\League;
 use App\Entity\Season;
+use App\Entity\User;
+use App\Form\LeagueType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -19,6 +22,34 @@ class LeagueController extends AbstractController
 
         return $this->render('league/index.html.twig', [
             'leagues' => $leagues
+        ]);
+    }
+
+    /**
+     * @Route("/league/create", name="league-create")
+     * @param Request $request
+     * @return Response
+     */
+    public function new(Request $request): Response
+    {
+        $league = new League();
+
+        $form = $this->createForm(LeagueType::class, $league);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $league = $form->getData();
+
+            $this->getUser()->addLeague($league);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($league);
+            $em->flush();
+
+            return $this->redirectToRoute('leagues');
+        }
+
+        return $this->render('league/create.html.twig', [
+            'form' => $form->createView()
         ]);
     }
 
