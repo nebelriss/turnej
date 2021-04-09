@@ -3,19 +3,26 @@
 namespace App\Controller;
 
 use App\Entity\League;
+use App\Entity\Player;
 use App\Entity\Season;
 use App\Entity\User;
 use App\Form\LeagueType;
+use App\Form\PlayerType;
 use App\Form\SeasonType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class LeagueController
+ * @package App\Controller
+ * @Route("/league")
+ */
 class LeagueController extends AbstractController
 {
     /**
-     * @Route("/league", name="leagues")
+     * @Route("/", name="leagues")
      */
     public function index(): Response
     {
@@ -27,7 +34,7 @@ class LeagueController extends AbstractController
     }
 
     /**
-     * @Route("/league/create", name="league-create")
+     * @Route("/create", name="league-new")
      * @param Request $request
      * @return Response
      */
@@ -49,13 +56,13 @@ class LeagueController extends AbstractController
             return $this->redirectToRoute('leagues');
         }
 
-        return $this->render('league/create.html.twig', [
+        return $this->render('league/new.html.twig', [
             'form' => $form->createView()
         ]);
     }
 
     /**
-     * @Route("/league/{id}", name="league")
+     * @Route("/{id}", name="league-show")
      * @param int $id
      * @return Response
      */
@@ -76,7 +83,41 @@ class LeagueController extends AbstractController
     }
 
     /**
-     * @Route("/league/{id}/create", name="season-create")
+     * @Route("/{id}/players/create", name="player-new")
+     * @param int $id
+     * @param Request $request
+     * @return Response
+     */
+    public function newPlayer(int $id, Request $request): Response
+    {
+        $league = $this
+            ->getDoctrine()
+            ->getRepository(League::class)
+            ->findOneByIdAndUserId($id, $this->getUser()->getId());
+
+        $player = new Player();
+
+        $form = $this->createForm(PlayerType::class, $player);
+        $form ->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $player = $form->getData();
+            $league->addPlayer($player);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($player);
+            $em->flush();
+
+            return $this->redirectToRoute('leagues');
+        }
+
+        return $this->render('player/new.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/create", name="season-new")
      * @param int $id
      * @param Request $request
      * @return Response
@@ -97,6 +138,8 @@ class LeagueController extends AbstractController
 
            $league->addSeason($season);
 
+           // create games
+
            $em = $this->getDoctrine()->getManager();
            $em->persist($season);
            $em->flush();
@@ -104,13 +147,13 @@ class LeagueController extends AbstractController
            return $this->redirectToRoute('league', ['id' => $id]);
        }
 
-       return $this->render('league/create_season.html.twig', [
+       return $this->render('season/new.html.twig', [
            'form' => $form->createView()
        ]);
     }
 
     /**
-     * @Route("/league/{leagueId}/seasons/{seasonId}", name="show_season")
+     * @Route("/{leagueId}/seasons/{seasonId}", name="season-show")
      * @param int $leagueId
      * @param int $seasonId
      * @return Response
@@ -124,7 +167,7 @@ class LeagueController extends AbstractController
             ->getRepository(Season::class)
             ->find($seasonId);
 
-        return $this->render('league/show_season.html.twig', [
+        return $this->render('season/show.html.twig', [
             'season' => $season
         ]);
     }

@@ -9,7 +9,7 @@
     <ul>
       {% for league in leagues %}
         <li>
-          <a href="{{ path('league', {'id': league.id}) }}" class="block hover:bg-gray-50">
+          <a href="{{ path('league-show', {'id': league.id}) }}" class="block hover:bg-gray-50">
             <div class="px-4 py-4 flex items-center sm:px-6">
               <div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
                 <div class="truncate">
@@ -47,7 +47,7 @@
       {% endfor %}
     </ul>
     <div>
-      <a href="{{ path('league-create') }}">Create</a>
+      <a href="{{ path('league-new') }}">Create League</a>
     </div>
   </div>
 {% endblock %}

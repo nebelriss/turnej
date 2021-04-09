@@ -10,7 +10,7 @@
     <ul>
       {% for season in league.seasons %}
         <li>
-          <a href="{{ path('show_season', {'seasonId': season.id, 'leagueId': league.id}) }}"
+          <a href="{{ path('season-show', {'seasonId': season.id, 'leagueId': league.id}) }}"
              class="block hover:bg-gray-50">
             <div class="px-4 py-4 flex items-center sm:px-6">
               <div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
@@ -50,7 +50,10 @@
     </ul>
   </div>
   <div>
-    <a href="{{ path('season-create', {id: league.id}) }}">create</a>
+    <a href="{{ path('season-new', {id: league.id}) }}">Create Season</a>
+  </div>
+  <div>
+    <a href="{{ path('player-new', {id: league.id}) }}">Create Player</a>
   </div>
 {% endblock %}
 

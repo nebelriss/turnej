@@ -20,6 +20,7 @@ class PlayerCrudController extends AbstractCrudController
         return [
             IdField::new('id')->setFormTypeOption('disabled','disabled'),
             TextField::new('name'),
+            AssociationField::new('league'),
             AssociationField::new('gamesHome'),
             AssociationField::new('gamesAway')
         ];
