@@ -2,6 +2,8 @@ install:
 	docker-compose build
 	docker-compose up -d
 	symfony composer install
+	yarn install
+	yarn encore dev --watch
 	symfony console doc:mi:mi
 
 start:
