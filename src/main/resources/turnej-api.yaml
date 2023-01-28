@@ -1,0 +1,41 @@
+openapi: 3.0.3
+info:
+  title: turnej
+  version: 1.0.0
+paths:
+  /players:
+    get:
+      tags:
+        - Players
+      operationId: getPlayers
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlayersResponse"
+
+components:
+  schemas:
+    PlayersResponse:
+      properties:
+        players:
+          type: array
+          items:
+            $ref: "#/components/schemas/Player"
+      required:
+        - players
+
+    Player:
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+      required:
+        - id
+        - name
+
+
