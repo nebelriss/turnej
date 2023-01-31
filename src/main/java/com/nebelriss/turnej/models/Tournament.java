@@ -1,23 +1,19 @@
-package com.nebelriss.turnej.player;
+package com.nebelriss.turnej.models;
 
 import jakarta.persistence.*;
 
 import java.util.UUID;
 
 @Entity
-public class Player {
+public class Tournament {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", nullable = false)
     private UUID id;
 
+    @Column(nullable = false)
     private String name;
 
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
+    @Column(nullable = true)
+    private String location;
 }
