@@ -20,5 +20,5 @@ public class Tournament {
     private String location;
 
     @OneToMany(mappedBy = "tournament")
-    private Set<Match> matches;
+    private Set<Season> seasons;
 }

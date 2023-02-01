@@ -26,7 +26,6 @@ public class Match {
     private int awayTeamGoals;
 
     @ManyToOne
-    @JoinColumn(name = "tournament_id", referencedColumnName = "id", nullable = false)
-    private Tournament tournament;
-
+    @JoinColumn(name = "season_id", referencedColumnName = "id", nullable = false)
+    private Season season;
 }
