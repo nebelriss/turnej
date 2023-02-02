@@ -42,6 +42,8 @@ dependencies {
     runtimeOnly("org.postgresql:postgresql")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+    implementation("com.google.guava:guava:31.1-jre")
 }
 
 sourceSets {
