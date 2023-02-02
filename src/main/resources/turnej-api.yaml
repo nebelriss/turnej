@@ -3,53 +3,29 @@ info:
   title: turnej
   version: 1.0.0
 paths:
-  /loadresult:
+  /turnej:
     get:
       tags:
         - turnej
-      operationId: getLoadResult
+      operationId: getTurnejFetchResult
       responses:
         200:
           description: ok
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/LoadResultResponse"
-
-  /tournament:
-    post:
-      tags:
-        - tournament
-      operationId: addTournament
-      requestBody:
-        description: ""
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/Tournament"
-      responses:
-        201:
-          description: created
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Tournament"
+                $ref: "#/components/schemas/TurnejFetchResult"
 
 components:
   schemas:
-    LoadResultResponse:
+    TurnejFetchResult:
       properties:
         tournaments:
           type: array
           items:
             $ref: "#/components/schemas/Tournament"
-        players:
-          type: array
-          items:
-            $ref: "#/components/schemas/Player"
       required:
-        - players
+        - tournaments
 
     Tournament:
       properties:
@@ -64,16 +40,3 @@ components:
         - id
         - name
         - location
-
-    Player:
-      properties:
-        id:
-          type: string
-          format: uuid
-        name:
-          type: string
-      required:
-        - id
-        - name
-
-

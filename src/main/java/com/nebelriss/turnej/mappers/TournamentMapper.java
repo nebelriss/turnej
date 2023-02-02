@@ -13,4 +13,6 @@ public interface TournamentMapper {
     TournamentBo fromData(TournamentData data);
 
     Tournament toEntity(TournamentBo bo);
+
+    TournamentBo fromEntity(Tournament tournament);
 }
