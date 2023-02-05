@@ -17,7 +17,7 @@ public class TournamentService {
 
     public Collection<TournamentBo> getAllTournaments() {
         return repository.findAll().stream()
-                .map(TournamentMapper.INSTANCE::fromEntity)
+                .map(TournamentMapper.INSTANCE::toBoFromEntity)
                 .collect(ImmutableList.toImmutableList());
     }
 }

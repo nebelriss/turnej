@@ -10,9 +10,12 @@ import org.mapstruct.factory.Mappers;
 public interface TournamentMapper {
     TournamentMapper INSTANCE = Mappers.getMapper(TournamentMapper.class);
 
-    TournamentBo fromData(TournamentData data);
+    TournamentBo toBoFromData(TournamentData data);
 
-    Tournament toEntity(TournamentBo bo);
+    TournamentData toDataFromBo(TournamentBo bo);
 
-    TournamentBo fromEntity(Tournament tournament);
+    Tournament toEntityFromBo(TournamentBo bo);
+
+    TournamentBo toBoFromEntity(Tournament tournament);
+
 }

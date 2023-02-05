@@ -5,7 +5,7 @@ import com.nebelriss.turnej.turnej.TurnejFetchResultBo;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(uses = {TournamentMapper.class})
+@Mapper(uses = {TournamentMapper.class, SeasonMapper.class})
 public interface TurnejFetchResultMapper {
 
     TurnejFetchResultMapper INSTANCE = Mappers.getMapper(TurnejFetchResultMapper.class);

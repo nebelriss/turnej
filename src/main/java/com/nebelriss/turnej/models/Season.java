@@ -21,6 +21,8 @@ public class Season {
         this.id = id;
     }
 
+    public String name;
+
     @OneToMany(mappedBy = "season")
     private Set<Match> matches;
 
